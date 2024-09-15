@@ -8,5 +8,9 @@ namespace LogicaNegocio
 {
     internal class Publicacion
     {
+        //Console.WriteLine("Prueba Git");
+
+        private static int s_ultimoId = 0;
+
     }
 }
