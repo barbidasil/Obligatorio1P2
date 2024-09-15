@@ -10,7 +10,7 @@ namespace LogicaNegocio
     {
         //Console.WriteLine("Prueba Git");
 
-        private static int s_ultimoId = 0;
+        private static int s_ultimoId = 1;
 
     }
 }
