@@ -1,70 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicaNegocio
+﻿
+public class Usuario
 {
-    public class Usuario
+    
+    private int _userId;
+    private string _name;
+    private string _lastname;
+    private string _email;
+    private string _password;
+
+    public int UserId
     {
-        private static int s_ultimoId = 0;
+        get { return _userId; }
+    }
 
-        private int _userId;
-        private string _name;
-        private string _lastname;
-        private string _email;
-        private string _password;
+    public string Name
+    {
+        get { return _name; }
+        set { _name = value; }
+    }
 
+    public string Lastname
+    {
+        get { return _lastname; }
+        set { _lastname = value; }
+    }
 
-        public int UserId
-        {
-            get { return _userId; }
-        }
+    public string Email
+    {
+        get { return _email; }
+        set { _email = value; }
+    }
 
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+    public string Password
+    {
+        get { return _password; }
+        set { _password = value; }
+    }
 
-        public string Lastname
-        {
-            get { return _lastname; }
-            set { _lastname = value; }
-        }
+    public Usuario(int userId, string name, string lastname, string email, string password)
+    {
+        _userId = userId;
+        _name = name;
+        _lastname = lastname;
+        _email = email;
+        _password = password;
+    }
+}
 
-        public string Email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-        public string Password
-        {
-            get { return _password; }
-            set { _password = value; }
-        }
+public class Cliente : Usuario
+{
+    
+    private decimal _saldoDisponible;
 
-        public Usuario()
-        {
-            Usuario.s_ultimoId++;
-            this._userId = Usuario.s_ultimoId;
-        }
+    public decimal SaldoDisponible
+    {
+        get { return _saldoDisponible; }
+        set { _saldoDisponible = value; }
+    }
 
-        public Usuario(string name, string lastname, string email, string password)
-        {
-            Usuario.s_ultimoId++;
-            this._userId = Usuario.s_ultimoId;
-            this._name = name;
-            this._lastname = lastname;
-            this._email = email;
-            this._password = password;
-        }
+    // Constructor
+    public Cliente(int userId, string name, string lastname, string email, string password, decimal saldoDisponible)
+        : base(userId, name, lastname, email, password) // Llama al constructor de Usuario
+    {
+        _saldoDisponible = saldoDisponible;
+    }
+}
 
-        public override string ToString()
-        {
-            return this._name;
-        }
-
+// Clase Administrador que hereda de Usuario
+public class Administrador : Usuario
+{
+    // Constructor
+    public Administrador(int userId, string name, string lastname, string email, string password)
+        : base(userId, name, lastname, email, password) 
+    {
+       
     }
 }
