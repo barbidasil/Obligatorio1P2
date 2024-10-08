@@ -1,59 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace LogicaNegocio
 {
-    internal class Sistema
+    public class Sistema
     {
-        // Lista de publicaciones
+        private static Sistema _instancia;
         private List<Publicacion> _publicaciones = new List<Publicacion>();
-
-        // Getter y Setter para la lista de publicaciones
-        public List<Publicacion> Publicaciones
-        {
-            get { return _publicaciones; }
-            set { _publicaciones = value; }
-        }
-
-        // Lista de usuarios
         private List<Usuario> _usuarios = new List<Usuario>();
+        private List<Category> _categorias = new List<Category>(); 
 
-        // Getter y Setter para la lista de usuarios
-        public List<Usuario> Usuarios
+        public static Sistema Instancia
         {
-            get { return _usuarios; }
-            set { _usuarios = value; }
+            get
+            {
+                if (_instancia == null)
+                {
+                    _instancia = new Sistema();
+                }
+                return _instancia;
+            }
+        }
+
+        public List<Publicacion> Publicacion { get { return _publicaciones; } }
+        public List<Usuario> Usuario { get { return _usuarios; } }
+
+        public List<Category> Categoria { get { return _categorias; } }
+
+
+        public List<Usuario> ObtenerUsuarios()
+        {
+            return _usuarios;
+        }
+        
+        public List<Category> ObtenerCategorias()
+        {
+            return _categorias;
+        }
+
+        public List<Article> ListarArticulosPorCat(Category categoria)
+        {
+            List<Article> articulosPorCat = new List<Article>();
+
+            foreach(Publicacion publicacion in Publicacion)
+            {
+                foreach( Article articulo in publicacion.Articles)
+                {
+                    foreach(Category cat in articulo.Category)
+                    {
+                        if(cat.Id == categoria.Id)
+                        {
+                            articulosPorCat.Add(articulo);
+                            break;
+                        }
+                    }
+                }
+            }
+            return articulosPorCat;
+        }
+
+        static void Main(string[] args)
+        {
+            Sistema sistema = new Sistema();
+
+        
         }
 
     }
 
-    // Definición de clases básicas para Usuario y Publicacion
-    public class Usuario
-    {
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
+    
 
-        // Constructor
-        public Usuario(int userId, string name, string email)
-        {
-            UserId = userId;
-            Name = name;
-            Email = email;
-        }
-    }
-
-    public class Publicacion
-    {
-        public int IdP { get; set; }
-        public string Name { get; set; }
-
-        // Constructor
-        public Publicacion(int idP, string name)
-        {
-            IdP = idP;
-            Name = name;
-        }
-    }
+    
 }
-w
