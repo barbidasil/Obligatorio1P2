@@ -7,8 +7,8 @@ namespace LogicaNegocio
 {
     public enum Status
     {
-        abierta = 0,
-        cerrada = 1,
-        cancealada =2,
+        ABIERTA = 0,
+        CERRADA = 1,
+        CANCELADA =2,
     }
 }

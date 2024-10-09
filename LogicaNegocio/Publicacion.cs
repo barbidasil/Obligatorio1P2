@@ -61,21 +61,19 @@ public class Publicacion
         set { _publicationEnd = value; }
     }
 
-    public Publicacion()
-    {
-        s_ultimoId++;
-        this._idP = s_ultimoId;
-    }
+   
 
     public Publicacion(string name, DateTime publishDate, Status status, Usuario buyingUser, Usuario userFinish, DateTime publicationEnd)
     {
+
+
         s_ultimoId++;
         this._idP = s_ultimoId;
         this._name = name;
         this._publishDate = publishDate;
         this._status = status;
-        this._buyingUser = buyingUser ?? throw new ArgumentNullException(nameof(buyingUser));
-        this._userFinish = userFinish ?? throw new ArgumentNullException(nameof(userFinish));
+        this._buyingUser = buyingUser;
+        this._userFinish = userFinish;
         this._publicationEnd = publicationEnd;
     }
 
@@ -128,20 +126,4 @@ public class Auction : Publicacion
 
 
 
-// Clases adicionales necesarias
-public class Status
-{
 
-}
-
-public class Article
-{
-}
-
-public class Usuario
-{
-}
-
-public class Client : Usuario
-{
-}

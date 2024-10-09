@@ -1,4 +1,6 @@
-﻿using LogicaNegocio;
+﻿
+using System.Security.Cryptography;
+using LogicaNegocio;
 
 namespace Libreria
 {
@@ -39,7 +41,7 @@ namespace Libreria
                                 Console.WriteLine($"Articulos dentro de la categoria '{nombreCategoria}': ");
                                 foreach (Article articulo in articulos)
                                 {
-                                    Console.WriteLine("$ - {articulo.Name}");
+                                    Console.WriteLine($" - Nombre: {articulo.Name}, Categoría: {nombreCategoria}, Precio: ${articulo.SellPrice}");
                                 }
                             }
                             else
@@ -56,7 +58,67 @@ namespace Libreria
 
                         break;
                     case "3":
-                        //CrearArticulo();
+                        bool ingreso = false;
+                        while (!ingreso)
+                        {
+                            try
+                            {
+                                Article articulo = new Article();
+                                Console.WriteLine("Ingrese el nombre del articulo: ");
+                                string name = Console.ReadLine();
+                                articulo.Name = name;
+
+                                Console.WriteLine("Ingrese la categoria: ");
+                                string categoryName = Console.ReadLine();
+                                Category categoriaSeleccionada = FindByCat(categoryName, sistema.ObtenerCategorias());
+
+                                if (categoriaSeleccionada != null)
+                                {
+
+                                    if (articulo.Category == null)
+                                    {
+                                        articulo.Category = new List<Category>();
+
+                                    }
+
+                                    articulo.Category.Add(categoriaSeleccionada);
+
+                                    Console.WriteLine($"Articulo '{articulo.Name}' ha sido asignado a la categoria '{categoriaSeleccionada.Name}'");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"La categoria '{categoryName}' no existe.");
+                                }
+
+                                //Ingresar precio articulo
+
+                                Console.WriteLine("Ingresar el precio del articulo: ");
+                                string precioInput = Console.ReadLine();
+                                decimal sellPrice;
+
+                                while (!decimal.TryParse(precioInput, out sellPrice) || sellPrice <= 0)
+                                {
+                                    Console.WriteLine("Precio invalido, por favor ingresa un valor numerico valido");
+                                    precioInput = Console.ReadLine();   
+
+                                }
+
+                                articulo.SellPrice = sellPrice;
+                               
+
+                                //Llamamos al metodo para agregar el articulo al sistema
+
+                                sistema.AgregarArticulo(articulo.Name, articulo.Category, articulo.SellPrice);
+                                ingreso = true;
+                                Console.WriteLine($"Se creo el articulo '{articulo.Name}' correctamente");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine (ex.Message);
+                            }
+                        }
+                        Console.WriteLine("Presione enter para continuar");
+                        Console.ReadLine();
                     break;
                     case "4":
                         //FiltrarPorFecha();
@@ -94,7 +156,7 @@ namespace Libreria
             {
                 foreach(Cliente cliente in clientes)
                 {
-                    Console.WriteLine($"Cliente: {cliente.Name}");
+                    Console.WriteLine($"Nombre: {cliente.Name}, Apellido: {cliente.Lastname}, Email: {cliente.Email}, Saldo Disponible: {cliente.SaldoDisponible:C}");
                 }
             }
             Console.WriteLine("Presione Enter para continuar");
@@ -118,6 +180,14 @@ namespace Libreria
 
             
 
+        }
+
+        public static Category FindByCat(string nombreCategoria, List<Category> categorias)
+        {
+            foreach(Category categoria in categorias){
+               if(categoria.Name == nombreCategoria) { return categoria; }
+            }
+            return null;
         }
 
         static void MostrarMenu()

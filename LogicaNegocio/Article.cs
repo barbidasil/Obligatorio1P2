@@ -10,7 +10,7 @@ namespace LogicaNegocio
         private int _id;
         private string _name;
         private List<Category> _category = new List<Category>();
-        private int _salesPrice;
+        private decimal _sellPrice;
 
         // Getters y Setters
         public int Id
@@ -31,19 +31,19 @@ namespace LogicaNegocio
             set { _category = value; }
         }
 
-        public int SalesPrice
+        public decimal SellPrice
         {
-            get { return _salesPrice; }
-            set { _salesPrice = value; }
+            get { return _sellPrice; }
+            set { _sellPrice = value; }
         }
 
         // Constructor opcional para inicializar la clase
-        public Article(int id, string name, List<Category> category, int salesPrice)
+        public Article(int id, string name, List<Category> category, int sellPrice)
         {
             _id = id;
             _name = name;
             _category = category;
-            _salesPrice = salesPrice;
+            _sellPrice = sellPrice;
         }
 
         // Constructor vacío

@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Auction.cs" />
+    <Compile Remove="Client.cs" />
+    <Compile Remove="Client1.cs" />
+  </ItemGroup>
+
 </Project>

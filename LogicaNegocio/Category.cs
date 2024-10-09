@@ -5,6 +5,7 @@ namespace LogicaNegocio
 {
     public class Category
     {
+        private static int nxid = 1;
         private int _id;
         private string _name;
 
@@ -24,7 +25,7 @@ namespace LogicaNegocio
 
         public Category(int id, string name)
         {
-            _id = id;
+            _id = nxid++;
             _name = name;
         }
 

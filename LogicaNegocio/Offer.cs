@@ -9,7 +9,7 @@ namespace LogicaNegocio
     public class Offer
     {
         private int _offerId;
-        private Client _client;
+        private Cliente _client;
         private int _amount;
         private DateTime _date;
 
@@ -18,7 +18,7 @@ namespace LogicaNegocio
             get { return _offerId; }
         }
 
-        public Client Client
+        public Cliente Client
         {
             get { return _client; }
         }
@@ -35,7 +35,7 @@ namespace LogicaNegocio
             set { _date = value; }
         }
 
-        public Offer(int offerId, Client client, int amount, DateTime date)
+        public Offer(int offerId, Cliente client, int amount, DateTime date)
         {
             this._offerId = offerId;
             this._client = client ?? throw new ArgumentNullException(nameof(client));
