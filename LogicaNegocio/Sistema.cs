@@ -28,6 +28,8 @@
 
         public List<Article> Articles { get { return _articles; } }
 
+
+        //////////////////////DATOS PRECARGADOS CON CHATGPT////////////////////////////////
         private Sistema()
         {
             this.Precargar();
@@ -84,20 +86,24 @@
             var usuarioComprador1 = _usuarios[0];
             var usuarioAdmin = _usuarios[1];
 
-            _publicaciones.Add(new Publicacion("Lote de Electrónicos", DateTime.Now, Status.CERRADA, usuarioComprador1, usuarioAdmin, DateTime.Now.AddDays(30)));
+            // Publicación cerrada en el pasado
+            _publicaciones.Add(new Publicacion("Lote de Electrónicos", new DateTime(2024, 7, 15), Status.CERRADA, usuarioComprador1, usuarioAdmin, new DateTime(2024, 8, 15)));
 
+            // Publicaciones abiertas, algunas en el pasado, algunas en el futuro
+            _publicaciones.Add(new Publicacion("Venta1", new DateTime(2024, 7, 22), Status.ABIERTA, _usuarios[0], usuarioAdmin, new DateTime(2024, 8, 22)));
+            _publicaciones.Add(new Publicacion("Venta2", new DateTime(2024, 7, 25), Status.ABIERTA, _usuarios[1], usuarioAdmin, new DateTime(2024, 8, 25)));
+            _publicaciones.Add(new Publicacion("Venta3", new DateTime(2024, 8, 1), Status.ABIERTA, _usuarios[0], usuarioAdmin, new DateTime(2024, 8, 28)));
+            _publicaciones.Add(new Publicacion("Venta4", new DateTime(2024, 8, 10), Status.ABIERTA, _usuarios[1], usuarioAdmin, new DateTime(2024, 8, 30)));
+            _publicaciones.Add(new Publicacion("Venta5", new DateTime(2024, 9, 1), Status.ABIERTA, _usuarios[0], usuarioAdmin, new DateTime(2024, 9, 15)));
+
+            // Subastas
             for (int i = 1; i <= 5; i++)
             {
-                var publicacion = new Publicacion($"Venta{i}", DateTime.Now, Status.ABIERTA, _usuarios[i % _usuarios.Count], _usuarios[1], DateTime.Now.AddDays(7));
-                _publicaciones.Add(publicacion);
-            }
-
-            for (int i = 1; i <= 5; i++)
-            {
-                var subasta = new Auction($"Subasta{i}", DateTime.Now, Status.ABIERTA, _usuarios[i % _usuarios.Count], _usuarios[1], DateTime.Now.AddDays(7));
+                var subasta = new Auction($"Subasta{i}", new DateTime(2024, 8, 5), Status.ABIERTA, _usuarios[i % _usuarios.Count], usuarioAdmin, new DateTime(2024, 8, 20));
                 _publicaciones.Add(subasta);
             }
         }
+        ////////////////////////////////////////////////////
 
         public List<Usuario> ObtenerUsuarios()
         {
@@ -107,6 +113,25 @@
         public List<Category> ObtenerCategorias()
         {
             return _categorias;
+        }
+
+        public List<Publicacion> ObtenerPublicaciones()
+        {
+            return _publicaciones;
+        }
+
+        public List<Publicacion> ListarPublicacionesEntreFechas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            List<Publicacion> publicacionesOk = new List<Publicacion>();
+
+            foreach (Publicacion publicacion in _publicaciones)
+            {
+                if (publicacion.PublishDate >= fechaInicio && publicacion.PublishDate <= fechaFin)
+                {
+                    publicacionesOk.Add(publicacion);
+                }
+            }
+            return publicacionesOk;
         }
 
         public List<Article> ListarArticulosPorCat(Category categoria)
@@ -139,7 +164,7 @@
             };
 
             _articles.Add(nuevoArticulo);
-            Console.WriteLine($"Articulo '{name}' agregado con exito");
+      
         }
 
         static void Main(string[] args)
@@ -147,4 +172,5 @@
             Sistema sistema = new Sistema();
         }
     }
+
 }

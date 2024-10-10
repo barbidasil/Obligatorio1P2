@@ -121,7 +121,45 @@ namespace Libreria
                         Console.ReadLine();
                     break;
                     case "4":
-                        //FiltrarPorFecha();
+                        try
+                        {
+                            Console.WriteLine("Ingrese la fecha de inicio (formato: yyyy-mm-dd): ");
+                            string fechaInicioInput = Console.ReadLine();
+                            DateTime fechaInicio;
+
+                            while (!DateTime.TryParse(fechaInicioInput, out fechaInicio))
+                            {
+                                Console.WriteLine("Fecha invalida, ingrese una fecha valida");
+                                fechaInicioInput = Console.ReadLine();
+
+                            }
+                            Console.WriteLine("Ingrese la fecha de fin (formato: yyyy-mm-dd): ");
+                            string fechaFinInput = Console.ReadLine();
+                            DateTime fechaFin;
+
+                            while (!DateTime.TryParse(fechaFinInput, out fechaFin) || fechaFin < fechaInicio)
+                            {
+                                Console.WriteLine("Fecha invalida, ingrese una fecha valida");
+                                fechaFinInput = Console.ReadLine();
+                            }
+                
+                            List<Publicacion> publicacionesFiltered = sistema.ListarPublicacionesEntreFechas(fechaInicio, fechaFin);
+
+                            if (publicacionesFiltered.Count > 0)
+                            {
+                                Console.WriteLine("Publicaciones encontradas en ese rango de fechas");
+                                foreach (Publicacion publicacion in publicacionesFiltered)
+                                {
+                                    Console.WriteLine($"ID: {publicacion.IdP}, Nombre: {publicacion.Name}, Estado: {publicacion.Status}, Fecha de Publicación: {publicacion.PublishDate.ToShortDateString()}");
+                                }
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        Console.WriteLine("Presione Enter Para Continuar");
+                        Console.ReadLine();
                     break;
                     default:
                     Console.WriteLine("Opcion invalida");
