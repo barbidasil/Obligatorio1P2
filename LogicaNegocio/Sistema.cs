@@ -120,6 +120,8 @@
             return _publicaciones;
         }
 
+
+        //Metodo para listar publicaciones por rango de fecha
         public List<Publicacion> ListarPublicacionesEntreFechas(DateTime fechaInicio, DateTime fechaFin)
         {
             List<Publicacion> publicacionesOk = new List<Publicacion>();
@@ -134,6 +136,8 @@
             return publicacionesOk;
         }
 
+
+        //Metodo para listar articulos por categoria
         public List<Article> ListarArticulosPorCat(Category categoria)
         {
             List<Article> articulosPorCat = new List<Article>();
@@ -152,7 +156,7 @@
             return articulosPorCat;
         }
 
-
+        //Metodo para agregar un articulo nuevo
         public void AgregarArticulo(string name, List<Category> categories, decimal sellPrice)
         {
             Article nuevoArticulo = new Article

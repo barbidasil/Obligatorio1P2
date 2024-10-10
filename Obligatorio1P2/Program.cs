@@ -8,6 +8,8 @@ namespace Libreria
     {
         static void Main(string[] args)
         {
+
+            //Instanciamos al sistema
             Sistema sistema = Sistema.Instancia;
 
             string seleccion = "";
@@ -27,7 +29,6 @@ namespace Libreria
                         ListarClientes();
                         break;
                     case "2":
-
                         Console.WriteLine("Ingresa una Categoria: ");
                         string nombreCategoria = Console.ReadLine();
                         Category categoria = CatPorName(nombreCategoria);

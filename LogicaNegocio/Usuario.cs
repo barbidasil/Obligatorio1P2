@@ -72,7 +72,7 @@ public class Cliente : Usuario
 public class Administrador : Usuario
 {
     // Constructor
-    public Administrador(int userId, string name, string lastname, string email, string password)
+    public Administrador(int userId, string name, string lastname, string  email, string password)
         : base(userId, name, lastname, email, password) 
     {
        
