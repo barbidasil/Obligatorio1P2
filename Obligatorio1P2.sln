@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libreria", "Obligatorio1P2\Libreria.csproj", "{0C48B9FD-E26D-48A0-945D-3BE9EFDF4476}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gestion", "Obligatorio1P2\Gestion.csproj", "{0C48B9FD-E26D-48A0-945D-3BE9EFDF4476}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaNegocio", "LogicaNegocio\LogicaNegocio.csproj", "{F112C12D-2AEB-422E-8EF2-F7E4C2F7B741}"
 EndProject

@@ -2,7 +2,8 @@
 using System.Security.Cryptography;
 using LogicaNegocio;
 
-namespace Libreria
+namespace Gestion
+
 {
     internal class Program
     {
