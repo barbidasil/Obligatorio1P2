@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Ver Publicaciones";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+<h2>Publicaciones</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Precio</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var publicacion in Model)
+        {
+            <tr>
+                <td>@publicacion.Nombre</td>
+                <td>@publicacion.Estado</td>
+                <td>@publicacion.Precio.ToString("C")</td>
+                <td>@publicacion.Tipo</td>
+                <td>
+                    @if (publicacion.EsAbierta)
+                    {
+                        @if (publicacion.Tipo == "Venta")
+                        {
+                            <form method="post" asp-action="ComprarVenta" asp-controller="Cliente">
+                                <input type="hidden" name="publicacionId" value="@publicacion.Id" />
+                                <button type="submit" class="btn btn-primary">Comprar</button>
+                            </form>
+                        }
+                        else if (publicacion.Tipo == "Subasta")
+                        {
+                            <form method="post" asp-action="OfertarSubasta" asp-controller="Cliente">
+                                <input type="hidden" name="publicacionId" value="@publicacion.Id" />
+                                <div class="input-group">
+                                    <input type="number" name="monto" placeholder="Oferta" class="form-control" step="0.01" min="0" required />
+                                    <button type="submit" class="btn btn-secondary">Ofertar</button>
+                                </div>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted">No disponible</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

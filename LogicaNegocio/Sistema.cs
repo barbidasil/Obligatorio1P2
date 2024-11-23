@@ -7,6 +7,7 @@
         private List<Usuario> _usuarios = new List<Usuario>();
         private List<Category> _categorias = new List<Category>();
         private List<Article> _articles = new List<Article>();
+        private List<Cliente> _clientes = new List<Cliente>();
         private static int _nxid = 1;
 
         public static Sistema Instancia
@@ -28,6 +29,7 @@
 
         public List<Article> Articles { get { return _articles; } }
 
+        public List<Cliente> Clientes { get { return _clientes; } }
 
         //////////////////////DATOS PRECARGADOS CON CHATGPT////////////////////////////////
         private Sistema()
@@ -45,12 +47,24 @@
 
         private void PrecargarUsuarios()
         {
-            _usuarios.Add(new Cliente(1, "Juan", "Pérez", "juan.perez@ejemplo.com", "password", 1000));
-            _usuarios.Add(new Cliente(2, "María", "González", "maria.gonzalez@ejemplo.com", "password", 1500));
-            _usuarios.Add(new Cliente(3, "Carlos", "López", "carlos.lopez@ejemplo.com", "password", 800));
-            _usuarios.Add(new Cliente(4, "Ana", "Martínez", "ana.martinez@ejemplo.com", "password", 1200));
-            _usuarios.Add(new Cliente(5, "Luis", "Ramírez", "luis.ramirez@ejemplo.com", "password", 950));
+            var cliente1 = new Cliente(1, "Juan", "Pérez", "juan.perez@ejemplo.com", "password", 1000);
+            var cliente2 = new Cliente(2, "María", "González", "maria.gonzalez@ejemplo.com", "password", 1500);
+            var cliente3 = new Cliente(3, "Carlos", "López", "carlos.lopez@ejemplo.com", "password", 800);
+            var cliente4 = new Cliente(4, "Ana", "Martínez", "ana.martinez@ejemplo.com", "password", 1200);
+            var cliente5 = new Cliente(5, "Luis", "Ramírez", "luis.ramirez@ejemplo.com", "password", 950);
+
+            _usuarios.Add(cliente1);
+            _usuarios.Add(cliente2);
+            _usuarios.Add(cliente3);
+            _usuarios.Add(cliente4);
+            _usuarios.Add(cliente5);
             _usuarios.Add(new Administrador(6, "Admin", "Principal", "admin@ejemplo.com", "password"));
+
+            _clientes.Add(cliente1);
+            _clientes.Add(cliente2);
+            _clientes.Add(cliente3);
+            _clientes.Add(cliente4);
+            _clientes.Add(cliente5);
         }
 
         private void PrecargarCategorias()
@@ -120,6 +134,11 @@
             return _publicaciones;
         }
 
+        public List<Cliente> ObtenerClientes()
+        {
+            return _clientes;
+        }
+
 
         //Metodo para listar publicaciones por rango de fecha
         public List<Publicacion> ListarPublicacionesEntreFechas(DateTime fechaInicio, DateTime fechaFin)
@@ -169,6 +188,42 @@
 
             _articles.Add(nuevoArticulo);
       
+        }
+
+        public List<Cliente> ListarClientes()
+        {
+            List<Cliente> clientesListados = new List<Cliente>();
+            foreach (Cliente cliente in _clientes)
+            {
+                clientesListados.Add(cliente);
+            }
+            return clientesListados;
+        }
+
+        // Método para obtener una categoría por nombre
+        public Category CatPorName(string nombre)
+        {
+            foreach (Category categoria in _categorias)
+            {
+                if (categoria.Name == nombre)
+                {
+                    return categoria;
+                }
+            }
+            return null;
+        }
+
+        // Método para encontrar una categoría dentro de una lista de categorías específica
+        public Category FindByCat(string nombreCategoria, List<Category> listaCategorias)
+        {
+            foreach (Category categoria in listaCategorias)
+            {
+                if (categoria.Name == nombreCategoria)
+                {
+                    return categoria;
+                }
+            }
+            return null;
         }
 
         static void Main(string[] args)

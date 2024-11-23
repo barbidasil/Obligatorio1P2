@@ -1,0 +1,57 @@
+﻿@model List<Obligatorio2.Models.SubastaViewModel>
+
+@{
+    ViewData["Title"] = "Ver Subastas";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+<h2>Subastas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha de Publicación</th>
+            <th>Estado</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subasta in Model)
+        {
+            <tr>
+                <td>@subasta.Name</td>
+                <td>@subasta.PublishDate.ToShortDateString()</td>
+                <td>@subasta.Status</td>
+                <td>@subasta.MejorOferta</td>
+                <td>
+                    @if (subasta.EsAbierta)
+                    {
+                        <form method="post" asp-action="CerrarSubasta" asp-controller="Administrador">
+                            <input type="hidden" name="subastaId" value="@subasta.Id" />
+                            <button type="submit" class="btn btn-danger">Cerrar Subasta</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Cerrada</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

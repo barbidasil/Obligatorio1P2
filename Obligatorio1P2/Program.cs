@@ -27,12 +27,26 @@ namespace Gestion
                         Console.ReadLine();
                         break;
                     case "1":
-                        ListarClientes();
+                        List<Cliente> clientes = sistema.ListarClientes(); 
+                        if (clientes.Count > 0)
+                        {
+                            Console.WriteLine("Lista de Clientes:");
+                            foreach (Cliente cliente in clientes)
+                            {
+                                Console.WriteLine($"Nombre: {cliente.Name} {cliente.Lastname}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay clientes disponibles.");
+                        }
+                        Console.WriteLine("Presione Enter Para continuar");
+                        Console.ReadLine();
                         break;
                     case "2":
                         Console.WriteLine("Ingresa una Categoria: ");
                         string nombreCategoria = Console.ReadLine();
-                        Category categoria = CatPorName(nombreCategoria);
+                        Category categoria = sistema.CatPorName(nombreCategoria);
 
                         if (categoria != null)
                         {
@@ -72,7 +86,7 @@ namespace Gestion
 
                                 Console.WriteLine("Ingrese la categoria: ");
                                 string categoryName = Console.ReadLine();
-                                Category categoriaSeleccionada = FindByCat(categoryName, sistema.ObtenerCategorias());
+                                Category categoriaSeleccionada = sistema.FindByCat(categoryName, sistema.ObtenerCategorias());
 
                                 if (categoriaSeleccionada != null)
                                 {
@@ -173,62 +187,6 @@ namespace Gestion
         }
 
 
-
-        public static void ListarClientes()
-        {
-            Sistema sistema = Sistema.Instancia;
-            List<Usuario> usuarios = sistema.ObtenerUsuarios();
-            List<Cliente> clientes = new List<Cliente>();
-
-            foreach (Usuario usuario in usuarios)
-            {
-                if(usuario is Cliente cliente)
-                {
-                    clientes.Add(cliente);
-                }
-            }
-
-            if(clientes.Count == 0)
-            {
-                Console.WriteLine("No hay clientes disponibles.");
-            }
-            else
-            {
-                foreach(Cliente cliente in clientes)
-                {
-                    Console.WriteLine($"Nombre: {cliente.Name}, Apellido: {cliente.Lastname}, Email: {cliente.Email}, Saldo Disponible: {cliente.SaldoDisponible:C}");
-                }
-            }
-            Console.WriteLine("Presione Enter para continuar");
-            Console.ReadLine();
-        }
-
-        public static Category CatPorName(string nombreCategoria)
-        {
-            Sistema sistema = Sistema.Instancia;
-            List<Category> categorias = sistema.ObtenerCategorias();
-
-            foreach(Category categoria in categorias)
-            {
-                if (categoria.Name == nombreCategoria)
-                {
-                    return categoria;
-                }
-            }
-
-            return null;
-
-            
-
-        }
-
-        public static Category FindByCat(string nombreCategoria, List<Category> categorias)
-        {
-            foreach(Category categoria in categorias){
-               if(categoria.Name == nombreCategoria) { return categoria; }
-            }
-            return null;
-        }
 
         static void MostrarMenu()
         {
