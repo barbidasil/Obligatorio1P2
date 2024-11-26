@@ -18,7 +18,7 @@ namespace Obligatorio2.Services
 
         private static void GenerarDatos()
         {
-            // Crear usuarios (Clientes y Administradores)
+            
             Usuarios.Add(new Cliente(1, "Juan", "Pérez", "juan.perez@ejemplo.com", "password123", 1000));
             Usuarios.Add(new Cliente(2, "María", "González", "maria.gonzalez@ejemplo.com", "password123", 2000));
             Usuarios.Add(new Cliente(3, "Carlos", "López", "carlos.lopez@ejemplo.com", "password123", 1500));
@@ -27,7 +27,6 @@ namespace Obligatorio2.Services
             Usuarios.Add(new Administrador(6, "Sofia", "Admin", "sofia.admin@ejemplo.com", "adminpass"));
             Usuarios.Add(new Administrador(7, "Pedro", "Admin", "pedro.admin@ejemplo.com", "adminpass"));
 
-            // Crear artículos
             var articulos = new List<Article>
             {
                 new Article { Id = 1, Name = "Balde", SellPrice = 200 },
@@ -42,7 +41,6 @@ namespace Obligatorio2.Services
                 new Article { Id = 10, Name = "Sillón de Cuero", SellPrice = 15000 }
             };
 
-            // Crear publicaciones de tipo Venta
             Publicaciones.Add(new Sales
             {
                 IdP = 1,
@@ -63,7 +61,7 @@ namespace Obligatorio2.Services
                 FlashOffer = false // No aplica descuento
             });
 
-            // Crear publicaciones de tipo Subasta
+         
             Publicaciones.Add(new Auction
             {
                 IdP = 3,

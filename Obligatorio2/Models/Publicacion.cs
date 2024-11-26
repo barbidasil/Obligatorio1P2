@@ -6,14 +6,14 @@ namespace Obligatorio2.Models
 {
     public class Publicacion
     {
-        public int IdP { get; set; } // Identificador único
-        public string Name { get; set; } // Nombre de la publicación
-        public DateTime PublishDate { get; set; } // Fecha de publicación
-        public string Status { get; set; } // Estado (Abierta, Cerrada)
-        public List<Article> Articles { get; set; } = new List<Article>(); // Lista de artículos
-        public Usuario BuyingUser { get; set; } // Usuario comprador (si aplica)
-        public Usuario UserFinish { get; set; } // Usuario que finalizó la publicación (si aplica)
-        public DateTime? PublicationEnd { get; set; } // Fecha de finalización (si aplica)
+        public int IdP { get; set; } 
+        public string Name { get; set; } 
+        public DateTime PublishDate { get; set; } 
+        public string Status { get; set; } 
+        public List<Article> Articles { get; set; } = new List<Article>();
+        public Usuario BuyingUser { get; set; } 
+        public Usuario UserFinish { get; set; } 
+        public DateTime? PublicationEnd { get; set; }
 
         public Publicacion() { }
 
@@ -27,7 +27,7 @@ namespace Obligatorio2.Models
         public virtual decimal GetPrice()
         {
             decimal total = 0;
-            foreach (var article in Articles)
+            foreach (Article article in Articles)
             {
                 total += article.SellPrice;
             }

@@ -33,7 +33,7 @@ namespace Obligatorio2.Controllers
             Usuario usuario = null;
 
             // Buscar al usuario en la lista de usuarios
-            foreach (var u in TestDataService.Usuarios)
+            foreach (Usuario u in TestDataService.Usuarios)
             {
                 if (u.UserId == userId)
                 {
@@ -49,7 +49,7 @@ namespace Obligatorio2.Controllers
 
             // Buscar la publicación correspondiente
             Publicacion publicacion = null;
-            foreach (var p in TestDataService.Publicaciones)
+            foreach (Publicacion  p in TestDataService.Publicaciones)
             {
                 if (p.IdP == publicacionId && p is Sales)
                 {
@@ -67,7 +67,7 @@ namespace Obligatorio2.Controllers
             Sales venta = publicacion as Sales;
             decimal precioVenta = venta.GetPrice();
 
-            // Verificar si el cliente tiene suficiente saldo
+            // Verifica si el cliente tiene saldo
             if (cliente.SaldoDisponible < precioVenta)
             {
                 TempData["Error"] = "Saldo insuficiente para realizar la compra.";
@@ -101,7 +101,7 @@ namespace Obligatorio2.Controllers
             Usuario usuario = null;
 
             // Buscar al usuario actual
-            foreach (var u in TestDataService.Usuarios)
+            foreach (Usuario u in TestDataService.Usuarios)
             {
                 if (u.UserId == userId)
                 {
@@ -117,7 +117,7 @@ namespace Obligatorio2.Controllers
 
             // Buscar la publicación correspondiente
             Publicacion publicacion = null;
-            foreach (var p in TestDataService.Publicaciones)
+            foreach (Publicacion p in TestDataService.Publicaciones)
             {
                 if (p.IdP == publicacionId && p is Auction)
                 {
@@ -135,7 +135,7 @@ namespace Obligatorio2.Controllers
 
             // Verificar la oferta más alta
             decimal mejorOferta = 0;
-            foreach (var oferta in subasta.Offers)
+            foreach (Offer oferta in subasta.Offers)
             {
                 if (oferta.Amount > mejorOferta)
                 {
@@ -181,7 +181,7 @@ namespace Obligatorio2.Controllers
             Usuario cliente = null;
 
             // Búsqueda manual del cliente
-            foreach (var usuario in usuarios)
+            foreach (Usuario usuario in usuarios)
             {
                 if (usuario.UserId == userId && usuario is Cliente)
                 {

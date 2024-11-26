@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Obligatorio2.Models;
 using Obligatorio2.Services;
-using System.Collections.Generic;
+
 
 namespace Obligatorio2.Controllers
 {
@@ -9,20 +9,20 @@ namespace Obligatorio2.Controllers
     {
         private List<Publicacion> publicaciones = TestDataService.Publicaciones;
 
-        // Endpoint 10: Ver todas las subastas
-        [HttpGet]
+
+
         [HttpGet]
         public IActionResult VerSubastas()
         {
             // Crear una lista de subastas para la vista
-            var subastasOrdenadas = new List<SubastaViewModel>();
-            foreach (var publicacion in publicaciones)
+            List<SubastaViewModel> subastasOrdenadas = new List<SubastaViewModel>();
+            foreach (Publicacion publicacion in publicaciones)
             {
                 if (publicacion is Auction subasta)
                 {
                     // Calcular la mejor oferta manualmente
                     decimal mejorOferta = 0;
-                    foreach (var oferta in subasta.Offers)
+                    foreach (Offer oferta in subasta.Offers)
                     {
                         if (oferta.Amount > mejorOferta)
                         {
@@ -50,14 +50,12 @@ namespace Obligatorio2.Controllers
 
 
 
-        // Endpoint 11: Cerrar una subasta
-        [HttpPost]
         [HttpPost]
         public IActionResult CerrarSubasta(int subastaId)
         {
-            // Buscar la subasta
+           
             Auction subasta = null;
-            foreach (var publicacion in TestDataService.Publicaciones)
+            foreach (Publicacion publicacion in TestDataService.Publicaciones)
             {
                 if (publicacion.IdP == subastaId && publicacion is Auction)
                 {
@@ -74,7 +72,7 @@ namespace Obligatorio2.Controllers
 
             // Determinar la mejor oferta
             Offer mejorOferta = null;
-            foreach (var oferta in subasta.Offers)
+            foreach (Offer oferta in subasta.Offers)
             {
                 if (mejorOferta == null || oferta.Amount > mejorOferta.Amount)
                 {
@@ -88,27 +86,24 @@ namespace Obligatorio2.Controllers
                 return RedirectToAction("VerSubastas");
             }
 
-            // Verificar si el mejor oferente tiene saldo suficiente
-            var mejorOferente = mejorOferta.Client as Cliente;
-            if (mejorOferente == null || mejorOferente.SaldoDisponible < mejorOferta.Amount)
+            // Verificar si el mejor ofertante tiene saldo 
+            var mejorOfertante = mejorOferta.Client as Cliente;
+            if (mejorOfertante == null || mejorOfertante.SaldoDisponible < mejorOferta.Amount)
             {
-                TempData["Error"] = "El mejor oferente no tiene saldo suficiente para completar la compra.";
+                TempData["Error"] = "El mejor ofertante no tiene saldo suficiente para completar la compra.";
                 return RedirectToAction("VerSubastas");
             }
 
             // Finalizar la subasta
-            mejorOferente.SaldoDisponible -= mejorOferta.Amount;
-            subasta.Close(mejorOferente, DateTime.Now);
+            mejorOfertante.SaldoDisponible -= mejorOferta.Amount;
+            subasta.Close(mejorOfertante, DateTime.Now);
 
-            TempData["Success"] = $"La subasta ha sido adjudicada a {mejorOferente.Name} por {mejorOferta.Amount:C}.";
+            TempData["Success"] = $"La subasta ha sido adjudicada a {mejorOfertante.Name} por {mejorOferta.Amount:C}.";
             return RedirectToAction("VerSubastas");
         }
 
 
 
-
-
-        // Endpoint 12: Logout
         [HttpPost]
         public IActionResult Logout()
         {

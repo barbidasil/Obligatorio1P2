@@ -22,7 +22,7 @@ namespace Obligatorio2.Controllers
             Usuario usuario = null;
 
             // Búsqueda manual del usuario
-            foreach (var u in TestDataService.Usuarios)
+            foreach (Usuario u in TestDataService.Usuarios)
             {
                 if (u.Email == email && u.Password == password)
                 {

@@ -8,7 +8,7 @@ public class Sales : Publicacion
     public override decimal GetPrice()
     {
         decimal totalPrice = 0;
-        foreach (var article in Articles)
+        foreach (Article article in Articles)
         {
             totalPrice += article.SellPrice;
         }

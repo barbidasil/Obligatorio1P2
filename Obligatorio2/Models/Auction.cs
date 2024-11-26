@@ -4,12 +4,11 @@ namespace Obligatorio2.Models
 {
     public class Auction : Publicacion
     {
-        public List<Offer> Offers { get; set; } = new List<Offer>(); // Lista de ofertas
-
+        public List<Offer> Offers { get; set; } = new List<Offer>(); 
         public override decimal GetPrice()
         {
             decimal highestOffer = 0;
-            foreach (var offer in Offers)
+            foreach (Offer offer in Offers)
             {
                 if (offer.Amount > highestOffer)
                 {

@@ -12,8 +12,8 @@ namespace Obligatorio2.Controllers
         [HttpGet]
         public IActionResult VerPublicaciones()
         {
-            var resultado = new List<object>();
-            foreach (var publicacion in publicaciones)
+            List<object> resultado = new List<object>();
+            foreach (Publicacion publicacion in publicaciones)
             {
                 decimal precio = publicacion is Sales venta
                     ? venta.GetPrice()
